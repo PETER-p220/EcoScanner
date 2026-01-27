@@ -91,28 +91,22 @@ class FaceRecognitionController extends Controller
         $request->validate([
             'face_encoding' => 'required|string',
         ]);
-
         $faceEncoding = json_decode($request->face_encoding);
-        
         // Find user by comparing face encodings
         $users = User::whereNotNull('face_encoding')->get();
         $matchedUser = null;
         $minDistance = PHP_FLOAT_MAX;
-
         foreach ($users as $user) {
             $storedEncoding = $user->face_encoding;
             if (!$storedEncoding) continue;
-
             // Calculate Euclidean distance
-            $distance = $this->calculateFaceDistance($faceEncoding, $storedEncoding);
-            
+            $distance = $this->calculateFaceDistance($faceEncoding, $storedEncoding);        
             // Threshold for face matching (adjust as needed)
             if ($distance < 0.6 && $distance < $minDistance) {
                 $minDistance = $distance;
                 $matchedUser = $user;
             }
         }
-
         if ($matchedUser) {
             Auth::login($matchedUser);
             
