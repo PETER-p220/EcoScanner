@@ -22,7 +22,7 @@
     [data-theme="dark"] {
         --bg: #111111;
         --card-bg: #1a1a1a;
-        --text: #eeeeee;
+        --text: red;
         --text-light: #bbbbbb;
         --border: #444444;
         --accent: #e00000;
