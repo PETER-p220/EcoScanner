@@ -40,319 +40,99 @@
         min-height: 100vh;
     }
 
-    .dashboard-container {
-        max-width: 1600px;
-        margin: 0 auto;
-        padding: 1.5rem 1rem;
-    }
+    .dashboard-container { max-width: 1600px; margin: 0 auto; padding: 1.5rem 1rem; }
 
     .theme-toggle {
-        position: fixed;
-        top: 1rem;
-        right: 1.5rem;
-        z-index: 1000;
-        background: var(--card-bg);
-        border: 1px solid var(--border);
-        border-radius: 50%;
-        width: 48px;
-        height: 48px;
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        cursor: pointer;
-        box-shadow: 0 3px 12px var(--shadow);
-        transition: all 0.3s ease;
+        position: fixed; top: 1rem; right: 1.5rem; z-index: 1000;
+        background: var(--card-bg); border: 1px solid var(--border); border-radius: 50%;
+        width: 48px; height: 48px; display: flex; align-items: center; justify-content: center;
+        cursor: pointer; box-shadow: 0 3px 12px var(--shadow); transition: all 0.3s;
         font-size: 1.4rem;
     }
-
-    .theme-toggle:hover {
-        transform: scale(1.1);
-        box-shadow: 0 6px 20px var(--shadow);
-    }
+    .theme-toggle:hover { transform: scale(1.1); box-shadow: 0 6px 20px var(--shadow); }
 
     .hero-welcome {
-        background: var(--text);
-        color: white;
-        border-radius: 20px;
-        padding: 2.5rem 2rem;
-        margin-bottom: 2rem;
-        box-shadow: 0 12px 40px var(--shadow);
+        background: var(--text); color: white; border-radius: 20px; padding: 2.5rem 2rem;
+        margin-bottom: 2rem; box-shadow: 0 12px 40px var(--shadow);
     }
+    .welcome-title { font-size: 2.8rem; font-weight: 900; margin-bottom: 0.6rem; }
+    .welcome-subtitle { font-size: 1.15rem; opacity: 0.9; margin-bottom: 1.8rem; }
 
-    .welcome-title {
-        font-size: 2.8rem;
-        font-weight: 900;
-        margin-bottom: 0.6rem;
-    }
-
-    .welcome-subtitle {
-        font-size: 1.15rem;
-        opacity: 0.9;
-        margin-bottom: 1.8rem;
-    }
-
-    .quick-stats {
-        display: grid;
-        grid-template-columns: repeat(auto-fit, minmax(140px, 1fr));
-        gap: 1.2rem;
-    }
-
+    .quick-stats { display: grid; grid-template-columns: repeat(auto-fit, minmax(140px, 1fr)); gap: 1.2rem; }
     .quick-stat {
-        background: rgba(255,255,255,0.12);
-        border: 1px solid rgba(255,255,255,0.18);
-        border-radius: 12px;
-        padding: 1.3rem;
-        text-align: center;
+        background: rgba(255,255,255,0.12); border: 1px solid rgba(255,255,255,0.18);
+        border-radius: 12px; padding: 1.3rem; text-align: center;
     }
+    [data-theme="dark"] .quick-stat { background: rgba(0,0,0,0.35); border-color: #555; }
+    .quick-stat-number { font-size: 2.4rem; font-weight: 900; color: var(--accent); display: block; }
 
-    [data-theme="dark"] .quick-stat {
-        background: rgba(0,0,0,0.35);
-        border-color: #555;
-    }
-
-    .quick-stat-number {
-        font-size: 2.4rem;
-        font-weight: 900;
-        color: var(--accent);
-        display: block;
-    }
-
-    .quick-stat-label {
-        font-size: 0.95rem;
-        opacity: 0.9;
-    }
-
-    .dashboard-grid {
-        display: grid;
-        grid-template-columns: 1fr 380px;
-        gap: 2rem;
-    }
+    .dashboard-grid { display: grid; grid-template-columns: 1fr 380px; gap: 2rem; }
 
     .scanner-card {
-        background: var(--card-bg);
-        border-radius: 20px;
-        padding: 1.8rem;
-        border: 1px solid var(--border);
-        box-shadow: 0 6px 24px var(--shadow);
+        background: var(--card-bg); border-radius: 20px; padding: 1.8rem;
+        border: 1px solid var(--border); box-shadow: 0 6px 24px var(--shadow);
     }
+    .section-title { font-size: 1.9rem; font-weight: 800; margin-bottom: 1.2rem; }
 
-    .section-title {
-        font-size: 1.9rem;
-        font-weight: 800;
-        margin-bottom: 1.2rem;
-    }
-
-    .controls-grid {
-        display: grid;
-        grid-template-columns: repeat(auto-fit, minmax(130px, 1fr));
-        gap: 1rem;
-        margin-bottom: 1.5rem;
-    }
-
+    .controls-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(130px, 1fr)); gap: 1rem; margin-bottom: 1.5rem; }
     .control-btn {
-        background: var(--accent);
-        color: white;
-        border: none;
-        padding: 1rem 1.4rem;
-        border-radius: 12px;
-        font-weight: 700;
-        cursor: pointer;
-        transition: all 0.25s ease;
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        gap: 0.5rem;
+        background: var(--accent); color: white; border: none; padding: 1rem 1.4rem;
+        border-radius: 12px; font-weight: 700; cursor: pointer; transition: all 0.25s;
+        display: flex; align-items: center; justify-content: center; gap: 0.5rem;
     }
-
-    .control-btn:hover:not(:disabled) {
-        background: var(--accent-hover);
-        transform: translateY(-2px);
-    }
-
-    .control-btn:disabled {
-        opacity: 0.5;
-        cursor: not-allowed;
-    }
-
-    .control-btn.secondary {
-        background: #555;
-        color: white;
-    }
-
-    [data-theme="dark"] .control-btn.secondary {
-        background: #666;
-    }
+    .control-btn:hover:not(:disabled) { background: var(--accent-hover); transform: translateY(-2px); }
+    .control-btn:disabled { opacity: 0.5; cursor: not-allowed; }
+    .control-btn.secondary { background: #555; color: white; }
+    [data-theme="dark"] .control-btn.secondary { background: #666; }
 
     .camera-container {
-        position: relative;
-        background: #000;
-        border-radius: 16px;
-        overflow: hidden;
-        margin-bottom: 1.5rem;
-        box-shadow: 0 10px 40px rgba(0,0,0,0.45);
+        position: relative; background: #000; border-radius: 16px; overflow: hidden;
+        margin-bottom: 1.5rem; box-shadow: 0 10px 40px rgba(0,0,0,0.45);
     }
-
-    #scannerVideo, #scannerCanvas {
-        width: 100%;
-        height: auto;
-        display: block;
-    }
-
-    #scannerCanvas {
-        position: absolute;
-        top: 0;
-        left: 0;
-    }
+    #scannerVideo, #scannerCanvas { width: 100%; height: auto; display: block; }
+    #scannerCanvas { position: absolute; top: 0; left: 0; }
 
     .scanner-status {
-        position: absolute;
-        top: 1rem;
-        left: 1rem;
-        background: rgba(0,0,0,0.8);
-        color: white;
-        padding: 0.6rem 1.3rem;
-        border-radius: 50px;
-        font-weight: 700;
-        display: flex;
-        align-items: center;
-        gap: 0.6rem;
-        z-index: 10;
+        position: absolute; top: 1rem; left: 1rem; background: rgba(0,0,0,0.8); color: white;
+        padding: 0.6rem 1.3rem; border-radius: 50px; font-weight: 700; display: flex;
+        align-items: center; gap: 0.6rem; z-index: 10;
     }
+    .status-dot { width: 10px; height: 10px; background: var(--status-active); border-radius: 50%; animation: pulse 2.5s infinite; }
+    @keyframes pulse { 0%,100% {opacity:1} 50% {opacity:0.4} }
 
-    .status-dot {
-        width: 10px;
-        height: 10px;
-        background: var(--status-active);
-        border-radius: 50%;
-        animation: pulse 2.5s infinite;
-    }
+    .fps-counter { position: absolute; top: 1rem; right: 1rem; background: rgba(0,0,0,0.8); color: white; padding: 0.5rem 1rem; border-radius: 50px; font-size: 0.9rem; z-index: 10; }
 
-    @keyframes pulse {
-        0%, 100% { opacity: 1; }
-        50% { opacity: 0.4; }
-    }
-
-    .fps-counter {
-        position: absolute;
-        top: 1rem;
-        right: 1rem;
-        background: rgba(0,0,0,0.8);
-        color: white;
-        padding: 0.5rem 1rem;
-        border-radius: 50px;
-        font-size: 0.9rem;
-        font-weight: 600;
-        z-index: 10;
-    }
-
-    .detection-feed {
-        max-height: 380px;
-        overflow-y: auto;
-        padding-right: 0.5rem;
-    }
-
+    .detection-feed { max-height: 380px; overflow-y: auto; padding-right: 0.5rem; }
     .detection-card {
-        background: #f4f4f4;
-        border-radius: 12px;
-        padding: 1.1rem;
-        margin-bottom: 1rem;
-        border-left: 5px solid var(--accent);
-        display: flex;
-        justify-content: space-between;
-        align-items: center;
+        background: #f4f4f4; border-radius: 12px; padding: 1.1rem; margin-bottom: 1rem;
+        border-left: 5px solid var(--accent); display: flex; justify-content: space-between; align-items: center;
     }
+    [data-theme="dark"] .detection-card { background: #222; }
+    .detection-icon { font-size: 2rem; margin-right: 1rem; }
+    .detection-info h4 { margin: 0 0 0.3rem; }
+    .detection-meta { font-size: 0.85rem; color: var(--text-light); }
+    .detection-points { background: var(--accent); color: white; padding: 0.5rem 1rem; border-radius: 10px; font-weight: 800; }
 
-    [data-theme="dark"] .detection-card {
-        background: #222222;
-    }
-
-    .detection-icon {
-        font-size: 2rem;
-        margin-right: 1rem;
-    }
-
-    .detection-info h4 {
-        margin: 0 0 0.3rem;
-    }
-
-    .detection-meta {
-        font-size: 0.85rem;
-        color: var(--text-light);
-    }
-
-    .detection-points {
-        background: var(--accent);
-        color: white;
-        padding: 0.5rem 1rem;
-        border-radius: 10px;
-        font-weight: 800;
-    }
-
-    .sidebar {
-        display: flex;
-        flex-direction: column;
-        gap: 1.5rem;
-    }
+    .sidebar { display: flex; flex-direction: column; gap: 1.5rem; }
 
     .points-card {
-        background: var(--accent);
-        color: white;
-        border-radius: 20px;
-        padding: 2rem 1.5rem;
-        text-align: center;
-        box-shadow: 0 12px 48px rgba(192, 0, 0, 0.3);
+        background: var(--accent); color: white; border-radius: 20px; padding: 2rem 1.5rem;
+        text-align: center; box-shadow: 0 12px 48px rgba(192,0,0,0.3);
     }
+    .points-number { font-size: 4rem; font-weight: 900; display: block; margin-bottom: 0.4rem; }
 
-    .points-number {
-        font-size: 4rem;
-        font-weight: 900;
-        display: block;
-        margin-bottom: 0.4rem;
-    }
-
-    .level-progress {
-        margin: 1.2rem 0;
-        background: rgba(255,255,255,0.25);
-        height: 12px;
-        border-radius: 6px;
-        overflow: hidden;
-    }
-
-    .level-bar {
-        height: 100%;
-        background: white;
-        border-radius: 6px;
-        transition: width 0.6s ease;
-    }
+    .level-progress { margin: 1.2rem 0; background: rgba(255,255,255,0.25); height: 12px; border-radius: 6px; overflow: hidden; }
+    .level-bar { height: 100%; background: white; border-radius: 6px; transition: width 0.6s ease; }
 
     .stats-card {
-        background: var(--card-bg);
-        border-radius: 20px;
-        padding: 1.6rem;
-        border: 1px solid var(--border);
-        box-shadow: 0 6px 20px var(--shadow);
+        background: var(--card-bg); border-radius: 20px; padding: 1.6rem;
+        border: 1px solid var(--border); box-shadow: 0 6px 20px var(--shadow);
     }
+    .stat-row { display: flex; justify-content: space-between; padding: 0.9rem 0; border-bottom: 1px solid var(--border); }
+    .stat-row:last-child { border-bottom: none; }
+    .stat-value { font-weight: 800; color: var(--accent); }
 
-    .stat-row {
-        display: flex;
-        justify-content: space-between;
-        padding: 0.9rem 0;
-        border-bottom: 1px solid var(--border);
-    }
-
-    .stat-row:last-child {
-        border-bottom: none;
-    }
-
-    .stat-value {
-        font-weight: 800;
-        color: var(--accent);
-    }
-
-    @media (max-width: 1200px) {
-        .dashboard-grid { grid-template-columns: 1fr; }
-    }
-
+    @media (max-width: 1200px) { .dashboard-grid { grid-template-columns: 1fr; } }
     @media (max-width: 768px) {
         .welcome-title { font-size: 2.2rem; }
         .quick-stats { grid-template-columns: repeat(2, 1fr); }
@@ -489,7 +269,6 @@ let facingMode = 'user';
 let lastDetectionTime = 0;
 let fps = 0;
 let sessionDetections = [];
-let currentPoints = {{ Auth::user()->points ?? 0 }};
 
 const wasteDatabase = {
     'bottle': { category: 'plastic', points: 5, icon: '🍾' },
@@ -524,7 +303,7 @@ document.getElementById('startScanBtn').addEventListener('click', async function
         });
 
         video.srcObject = stream;
-        await new Promise(resolve => { video.onloadedmetadata = resolve; });
+        await new Promise(resolve => video.onloadedmetadata = resolve);
         await video.play();
 
         canvas.width = video.videoWidth;
@@ -583,7 +362,7 @@ async function scanFrame() {
                 ctx.fillText(label, x + 10, y - 15);
 
                 if (info && !sessionDetections.find(d => d.type === pred.class && Date.now() - d.time < 4000)) {
-                    addDetection(pred.class, info);
+                    await addDetection(pred.class, info);
                 }
             }
         } catch (e) {
@@ -594,13 +373,13 @@ async function scanFrame() {
     requestAnimationFrame(scanFrame);
 }
 
-function addDetection(type, info) {
+async function addDetection(type, info) {
+    console.log("addDetection called with:", {type, category: info.category, points: info.points});
+
     sessionDetections.push({ type, time: Date.now() });
 
     const feed = document.getElementById('detectionFeed');
-    if (feed.querySelector('.text-center')) {
-        feed.innerHTML = '';
-    }
+    if (feed.querySelector('.text-center')) feed.innerHTML = '';
 
     const card = document.createElement('div');
     card.className = 'detection-card';
@@ -616,10 +395,54 @@ function addDetection(type, info) {
     `;
     feed.insertBefore(card, feed.firstChild);
 
-    currentPoints += info.points;
-    document.getElementById('userPoints').textContent = currentPoints;
-}
+    // Local update (should always show something)
+    let pointsEl = document.getElementById('userPoints');
+    let current = parseInt(pointsEl.textContent) || 0;
+    current += info.points;
+    pointsEl.textContent = current;
+    console.log("Local points updated to:", current);
 
+    // Backend save
+    try {
+        console.log("Sending AJAX to /scan/detect ...");
+
+        const response = await fetch('/scan/detect', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+                'X-CSRF-TOKEN': document.querySelector('meta[name="csrf-token"]')?.content || '',
+                'Accept': 'application/json'
+            },
+            body: JSON.stringify({
+                type: type,
+                category: info.category,
+                points: info.points
+            })
+        });
+
+        console.log("Response status:", response.status);
+
+        if (!response.ok) {
+            const errorText = await response.text();
+            console.error("Server error:", response.status, errorText);
+            throw new Error(`Server responded ${response.status}`);
+        }
+
+        const data = await response.json();
+        console.log("Server returned:", data);
+
+        if (data.success) {
+            document.getElementById('userPoints').textContent = data.new_points;
+            document.getElementById('totalScans').textContent = data.total_scans;
+            document.getElementById('ewasteFound').textContent = data.ewaste_count;
+            console.log("Counters synced from server");
+        } else {
+            console.warn("Server said success=false", data);
+        }
+    } catch (err) {
+        console.error('AJAX failed completely:', err);
+    }
+}
 document.getElementById('pauseBtn').addEventListener('click', function() {
     isScanning = !isScanning;
     this.textContent = isScanning ? '⏸️ Pause' : '▶️ Resume';
@@ -629,9 +452,7 @@ document.getElementById('pauseBtn').addEventListener('click', function() {
 document.getElementById('switchBtn').addEventListener('click', async function() {
     facingMode = facingMode === 'user' ? 'environment' : 'user';
     try {
-        const stream = await navigator.mediaDevices.getUserMedia({
-            video: { facingMode }
-        });
+        const stream = await navigator.mediaDevices.getUserMedia({ video: { facingMode } });
         video.srcObject = stream;
     } catch (err) {
         console.error('Switch camera failed:', err);
@@ -639,21 +460,21 @@ document.getElementById('switchBtn').addEventListener('click', async function() 
 });
 
 // Level progress
-const userLevel = {{ Auth::user()->level ?? 1 }};
-const userPoints = {{ Auth::user()->points ?? 0 }};
-const nextLevelPoints = userLevel * 100;
-const prevLevelPoints = (userLevel - 1) * 100;
-const progress = userPoints > prevLevelPoints ? ((userPoints - prevLevelPoints) / (nextLevelPoints - prevLevelPoints)) * 100 : 0;
+const level = {{ Auth::user()->level ?? 1 }};
+const points = {{ Auth::user()->points ?? 0 }};
+const next = level * 100;
+const prev = (level - 1) * 100;
+const progress = points > prev ? ((points - prev) / (next - prev)) * 100 : 0;
 document.getElementById('levelBar').style.width = Math.min(100, progress) + '%';
-document.getElementById('pointsToNext').textContent = Math.max(0, nextLevelPoints - userPoints);
+document.getElementById('pointsToNext').textContent = Math.max(0, next - points);
 
-// Initialize
+// Start
 init();
 
 // Cleanup
 window.addEventListener('beforeunload', () => {
-    if (video && video.srcObject) {
-        video.srcObject.getTracks().forEach(track => track.stop());
+    if (video?.srcObject) {
+        video.srcObject.getTracks().forEach(t => t.stop());
     }
 });
 </script>

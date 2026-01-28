@@ -5,6 +5,7 @@ use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\WasteDetectionController;
 use App\Http\Controllers\ReportController;
 use App\Http\Controllers\LeaderboardController;
+use App\Http\Controllers\ScanController;
 use Illuminate\Support\Facades\Route;
 use Illuminate\Support\Facades\Auth;
 
@@ -12,6 +13,7 @@ Route::get('/', function () {
     return view('welcome');
 });
 
+Route::post('/scan/detect', [ScanController::class, 'storeDetection'])->middleware('auth');
 // Guest routes
 Route::middleware('guest')->group(function () {
 
