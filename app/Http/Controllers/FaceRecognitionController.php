@@ -8,6 +8,7 @@ use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Str;
+use Illuminate\Validation\ValidationException;
 
 class FaceRecognitionController extends Controller
 {
@@ -61,10 +62,13 @@ class FaceRecognitionController extends Controller
                 ? "{$request->latitude},{$request->longitude}" 
                 : null,
             'language_preference' => $request->language_preference ?? 'en',
+            'last_login_at' => now(),
         ]);
 
         // Award welcome bonus
-        $user->addPoints(50, 'Welcome bonus');
+        if (method_exists($user, 'addPoints')) {
+            $user->addPoints(50, 'Welcome bonus');
+        }
 
         Auth::login($user);
 
@@ -84,32 +88,109 @@ class FaceRecognitionController extends Controller
     }
 
     /**
-     * Login with facial recognition
+     * Login with facial recognition OR password
      */
     public function login(Request $request)
+    {
+        // Check if it's a face login or password login
+        if ($request->has('face_encoding')) {
+            return $this->loginWithFace($request);
+        } else {
+            return $this->loginWithPassword($request);
+        }
+    }
+
+    /**
+     * Login with password (traditional login)
+     */
+    private function loginWithPassword(Request $request)
+    {
+        $request->validate([
+            'email' => 'required|email',
+            'password' => 'required|string',
+        ]);
+
+        $credentials = $request->only('email', 'password');
+        $remember = $request->filled('remember');
+
+        if (Auth::attempt($credentials, $remember)) {
+            $request->session()->regenerate();
+
+            // Update last login
+            $user = Auth::user();
+            $user->last_login_at = now();
+            $user->save();
+
+            // Check if it's an AJAX request
+            if ($request->expectsJson()) {
+                return response()->json([
+                    'success' => true,
+                    'message' => 'Welcome back, ' . $user->name . '!',
+                    'redirect' => route('dashboard'),
+                    'user' => [
+                        'name' => $user->name,
+                        'email' => $user->email,
+                        'points' => $user->points,
+                        'level' => $user->level,
+                    ],
+                ]);
+            }
+
+            return redirect()->intended(route('dashboard'))
+                ->with('success', 'Welcome back, ' . $user->name . '!');
+        }
+
+        // Failed login
+        if ($request->expectsJson()) {
+            return response()->json([
+                'success' => false,
+                'message' => 'The provided credentials do not match our records.',
+            ], 401);
+        }
+
+        throw ValidationException::withMessages([
+            'email' => ['The provided credentials do not match our records.'],
+        ]);
+    }
+
+    /**
+     * Login with facial recognition
+     */
+    private function loginWithFace(Request $request)
     {
         $request->validate([
             'face_encoding' => 'required|string',
         ]);
+
         $faceEncoding = json_decode($request->face_encoding);
+
         // Find user by comparing face encodings
         $users = User::whereNotNull('face_encoding')->get();
         $matchedUser = null;
         $minDistance = PHP_FLOAT_MAX;
+
         foreach ($users as $user) {
             $storedEncoding = $user->face_encoding;
             if (!$storedEncoding) continue;
+
             // Calculate Euclidean distance
-            $distance = $this->calculateFaceDistance($faceEncoding, $storedEncoding);        
+            $distance = $this->calculateFaceDistance($faceEncoding, $storedEncoding);
+
             // Threshold for face matching (adjust as needed)
             if ($distance < 0.6 && $distance < $minDistance) {
                 $minDistance = $distance;
                 $matchedUser = $user;
             }
         }
+
         if ($matchedUser) {
-            Auth::login($matchedUser);
-            
+            Auth::login($matchedUser, true);
+            $request->session()->regenerate();
+
+            // Update last login
+            $matchedUser->last_login_at = now();
+            $matchedUser->save();
+
             return response()->json([
                 'success' => true,
                 'message' => 'Welcome back, ' . $matchedUser->name . '!',
@@ -125,7 +206,7 @@ class FaceRecognitionController extends Controller
 
         return response()->json([
             'success' => false,
-            'message' => 'Face not recognized. Please try again or register.',
+            'message' => 'Face not recognized. Please try again or use password login.',
         ], 401);
     }
 
@@ -232,5 +313,19 @@ class FaceRecognitionController extends Controller
             'success' => true,
             'message' => 'Face updated successfully!',
         ]);
+    }
+
+    /**
+     * Logout user
+     */
+    public function logout(Request $request)
+    {
+        Auth::logout();
+        
+        $request->session()->invalidate();
+        $request->session()->regenerateToken();
+        
+        return redirect()->route('login')
+            ->with('success', 'You have been logged out successfully.');
     }
 }

@@ -14,6 +14,7 @@ Route::get('/', function () {
 
 // Guest routes
 Route::middleware('guest')->group(function () {
+
     // Registration
     Route::get('/register', [FaceRecognitionController::class, 'showRegister'])->name('register');
     Route::post('/register/facial', [FaceRecognitionController::class, 'register'])->name('register.facial');
@@ -34,6 +35,7 @@ Route::middleware('auth')->group(function () {
         return redirect('/');
     })->name('logout');
 });
+
     // Dashboard
     Route::get('/dashboard', [DashboardController::class, 'index'])->name('dashboard');
     Route::get('/dashboard/stats', [DashboardController::class, 'getStats'])->name('dashboard.stats');
