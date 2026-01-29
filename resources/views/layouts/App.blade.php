@@ -22,6 +22,11 @@
             <ul class="navbar-nav ms-auto">
                 @auth
                     <li class="nav-item"><a class="nav-link" href="/dashboard">Dashboard</a></li>
+                    <li class="nav-item"><a class="nav-link" href="{{ route('reports.create') }}">Reports</a></li>
+                    <li class="nav-item"><a class="nav-link" href="/logout"
+                       onclick="event.preventDefault(); document.getElementById('logout-form').submit();">Logout</a></li>
+                    <form id="logout-form" action="/logout" method="POST" class="d-none">
+                        @csrf   
                 @else
                     <li class="nav-item"><a class="nav-link" href="/login">Login</a></li>
                     <li class="nav-item"><a class="nav-link" href="/register">Register</a></li>
