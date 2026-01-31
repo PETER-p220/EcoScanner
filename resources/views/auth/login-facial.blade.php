@@ -549,7 +549,7 @@
             </div>
 
             <div class="register-link">
-                Don't have an account? <a href="{{ url('/face-recognition/register') }}">Register now</a>
+                Don't have an account? <a href="{{ route('register') }}">Register now</a>
             </div>
         </div>
     </div>
@@ -678,8 +678,8 @@
                 // Convert face descriptor to array
                 const descriptor = Array.from(face.descriptor);
 
-                // Send to Laravel backend
-                const response = await fetch('/face-recognition/login', {
+                // Send to Laravel backend - FIXED ROUTE
+                const response = await fetch('{{ route("login.facial") }}', {
                     method: 'POST',
                     headers: {
                         'Content-Type': 'application/json',

@@ -13,10 +13,8 @@ Route::get('/', function () {
     return view('welcome');
 });
 
-Route::post('/scan/detect', [ScanController::class, 'storeDetection'])->middleware('auth');
 // Guest routes
 Route::middleware('guest')->group(function () {
-
     // Registration
     Route::get('/register', [FaceRecognitionController::class, 'showRegister'])->name('register');
     Route::post('/register/facial', [FaceRecognitionController::class, 'register'])->name('register.facial');
@@ -28,19 +26,20 @@ Route::middleware('guest')->group(function () {
 
 // Protected routes
 Route::middleware('auth')->group(function () {
-    Route::get('/dashboard', [DashboardController::class, 'index'])->name('dashboard');
-    
+    // Logout
     Route::post('/logout', function () {
         Auth::logout();
         request()->session()->invalidate();
         request()->session()->regenerateToken();
         return redirect('/');
     })->name('logout');
-});
 
     // Dashboard
     Route::get('/dashboard', [DashboardController::class, 'index'])->name('dashboard');
     Route::get('/dashboard/stats', [DashboardController::class, 'getStats'])->name('dashboard.stats');
+
+    // Scan
+    Route::post('/scan/detect', [ScanController::class, 'storeDetection']);
 
     // Waste Detection
     Route::get('/waste', [WasteDetectionController::class, 'index'])->name('waste.index');
@@ -67,6 +66,4 @@ Route::middleware('auth')->group(function () {
 
     // Profile & Settings
     Route::post('/update-face', [FaceRecognitionController::class, 'updateFaceEncoding'])->name('update.face');
-
-
-
+});
